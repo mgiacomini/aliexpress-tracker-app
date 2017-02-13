@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def track
-    TrackOrderWorker.perform_async(params[:aliexpress], params[:wordpress], params[:aliexpress_number], params[:wordpress_reference])
+    TrackOrderWorker.perform_async(params)
     respond_with nil
   end
 

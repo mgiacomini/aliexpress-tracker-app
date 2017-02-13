@@ -12,9 +12,11 @@ end
 class TrackOrderWorker
   include Sidekiq::Worker
 
-  def perform(aliexpress, wordpress, aliexpress_number, wordpress_reference)
-    wordpress = Wordpress.new(wordpress)
-    aliexpress = ::AliexpressModel.new(aliexpress)
+  def perform(params={})
+    aliexpress_number = params[:aliexpress_number]
+    wordpress_reference = params[:wordpress_reference]
+    wordpress = Wordpress.new(params[:wordpress])
+    aliexpress = ::AliexpressModel.new(params[:aliexpress])
     order = Order.new(aliexpress: aliexpress, aliexpress_number: aliexpress_number, wordpress: wordpress, wordpress_reference: wordpress_reference)
 
     browser = Aliexpress::BrowserBuilder.build
