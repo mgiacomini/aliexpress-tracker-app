@@ -27,7 +27,7 @@ class TrackOrderWorker
   end
 
   def order_params(hash)
-    hash.to_unsafe_h #permit(:aliexpress_number, :wordpress_reference, :wordpress, :aliexpress)
+    hash #hash.to_unsafe_h #permit(:aliexpress_number, :wordpress_reference, :wordpress, :aliexpress)
   end
 
 end
