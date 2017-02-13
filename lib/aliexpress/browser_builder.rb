@@ -1,3 +1,5 @@
+require 'watir'
+
 module Aliexpress
   class BrowserBuilder
 
