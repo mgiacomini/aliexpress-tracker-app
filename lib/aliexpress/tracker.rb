@@ -31,7 +31,7 @@ module Aliexpress
           @log.add_message('Não foi possível rastrear o pedido '+ order.aliexpress_number)
         end
       end
-    rescue Watir::Wait::TimeoutError
+    rescue ::Watir::Wait::TimeoutError
       puts "========= Order not shipped yet: order number #{order.aliexpress_number}"
       @log.add_message('Não foi possível rastrear o pedido '+ order.aliexpress_number)
     end
