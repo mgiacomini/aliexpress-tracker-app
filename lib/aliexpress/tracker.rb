@@ -11,7 +11,6 @@ module Aliexpress
 
     def track!
       puts "========= Authenticate user for track an order"
-
       login
       open_order_page order.aliexpress_number
       sleep 5
