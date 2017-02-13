@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.permit(:aliexpress_number, :wordpress_reference, wordpress: [:consumer_secret, :consumer_key, :url], aliexpress: [:email, :password]).as_json
+    params.permit!.as_json
   end
 
 end
