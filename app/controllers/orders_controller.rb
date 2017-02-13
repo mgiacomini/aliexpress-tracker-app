@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 
   def track
     TrackOrderWorker.perform_async(params)
-    respond_with nil
+    render nothing: true, status: :ok
   end
 
 end
