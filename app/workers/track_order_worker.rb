@@ -13,7 +13,7 @@ class TrackOrderWorker
   include Sidekiq::Worker
 
   def perform(params={})
-    params = format_params(params)
+    params = order_params(params)
     aliexpress_number = params[:aliexpress_number]
     wordpress_reference = params[:wordpress_reference]
     wordpress = Wordpress.new(params[:wordpress])
@@ -26,13 +26,8 @@ class TrackOrderWorker
     browser.close
   end
 
-  def format_params(hash)
-    output = hash.dup
-    output[:aliexpress_number] = cleanup(output[:aliexpress_number])
-    output[:wordpress_reference] = cleanup(output[:wordpress_reference])
-    output[:wordpress] = cleanup(output[:wordpress_reference])
-    output[:aliexpress] = cleanup(output[:wordpress_reference])
-    output
+  def order_params(hash)
+    hash.permit(:aliexpress_number, :wordpress_reference, :wordpress, :aliexpress)
   end
 
 end
