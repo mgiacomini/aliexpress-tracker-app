@@ -5,9 +5,9 @@ class Order
   attr_accessor :aliexpress, :aliexpress_number, :wordpress, :wordpress_reference, :tracking_number, :success_url
 
   def notify_client
-    p "++++ Notificando Cliente +++++"
-    wordpress.update_tracking_number_note({'id' => wordpress_reference}, aliexpress_number) unless wordpress.valid?
-    send_success_notification(success_url) unless success_url.blank?
+    p "++++ Notificando Cliente: #{self.success_url} +++++"
+    wordpress.update_tracking_number_note({'id' => self.wordpress_reference}, self.aliexpress_number) unless self.wordpress.valid?
+    send_success_notification(self.success_url) unless self.success_url.blank?
   end
 
   def tracked?
