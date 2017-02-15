@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def track
-    TrackOrderWorker.perform_async(JSON.parse(order_params))
+    TrackOrderWorker.perform_async(order_params.to_h)
     head :ok
   end
 
