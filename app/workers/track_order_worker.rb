@@ -16,7 +16,7 @@ end
 
 class TrackOrderWorker
   include Sidekiq::Worker
-  sidekiq_option retry: 10
+  sidekiq_options retry: 10
 
   def perform(params={})
     browser = ::Aliexpress::BrowserBuilder.build
