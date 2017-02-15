@@ -23,6 +23,7 @@ module Aliexpress
         if !tracking_number.blank?
           puts "========= Order already shipped: Getting tracking number #{tracking_number}"
           @log.add_message('Atualizando wordpress com código de rastreio do pedido '+ tracking_number)
+          order.tracking_number = tracking_number
           order.notify_client
           return tracking_number
         else
