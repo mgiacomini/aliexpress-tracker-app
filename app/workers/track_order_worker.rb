@@ -26,11 +26,12 @@ class TrackOrderWorker
   end
 
   def build_order(params={})
+    success_url = params[:success_url] || params['success_url']
     aliexpress_number = params[:aliexpress_number] || params['aliexpress_number']
     wordpress_reference = params[:wordpress_reference] || params['wordpress_reference']
     wordpress = ::Wordpress.new(params[:wordpress] || params['wordpress'])
     aliexpress = ::AliexpressModel.new(params[:aliexpress] || params['aliexpress'])
-    ::Order.new(aliexpress: aliexpress, aliexpress_number: aliexpress_number, wordpress: wordpress, wordpress_reference: wordpress_reference)
+    ::Order.new(success_url: success_url, aliexpress: aliexpress, aliexpress_number: aliexpress_number, wordpress: wordpress, wordpress_reference: wordpress_reference)
   end
 
 end
