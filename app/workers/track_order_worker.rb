@@ -33,8 +33,4 @@ class TrackOrderWorker
     ::Order.new(aliexpress: aliexpress, aliexpress_number: aliexpress_number, wordpress: wordpress, wordpress_reference: wordpress_reference)
   end
 
-  def order_params(hash)
-    hash
-  end
-
 end
