@@ -6,7 +6,6 @@ class Order
 
   def notify_client
     p "++++ Notificando Cliente: #{self.success_url} +++++"
-    wordpress.update_tracking_number_note({'id' => self.wordpress_reference}, self.aliexpress_number) unless self.wordpress.valid?
     send_success_notification(self.success_url) unless self.success_url.blank?
   end
 
