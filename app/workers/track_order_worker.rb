@@ -19,19 +19,27 @@ class TrackOrderWorker
   sidekiq_options retry: 10
 
   def perform(params={})
+    # check if order already exists
+    existing_order = Order.find_by(aliexpress_number: aliexpress_number(params))
+    return existing_order.notify_client if existing_order.tracked?
+
     browser = ::Aliexpress::BrowserBuilder.build
-    tracking_service = ::Aliexpress::Tracker.new(build_order(params), browser, NullableLog.new)
+    order = build_order(params)
+    tracking_service = ::Aliexpress::Tracker.new(order, browser, NullableLog.new)
     tracking_service.track!
     browser.close
   end
 
   def build_order(params={})
     success_url = params[:success_url] || params['success_url']
-    aliexpress_number = params[:aliexpress_number] || params['aliexpress_number']
     wordpress_reference = params[:wordpress_reference] || params['wordpress_reference']
     wordpress = ::Wordpress.new(params[:wordpress] || params['wordpress'])
     aliexpress = ::AliexpressModel.new(params[:aliexpress] || params['aliexpress'])
-    ::Order.new(success_url: success_url, aliexpress: aliexpress, aliexpress_number: aliexpress_number, wordpress: wordpress, wordpress_reference: wordpress_reference)
+    ::Order.new(success_url: success_url, aliexpress: aliexpress, aliexpress_number: aliexpress_number(params), wordpress: wordpress, wordpress_reference: wordpress_reference)
+  end
+
+  def aliexpress_number(params={})
+    params[:aliexpress_number] || params['aliexpress_number']
   end
 
 end
