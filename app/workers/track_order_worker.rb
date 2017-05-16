@@ -20,8 +20,8 @@ class TrackOrderWorker
 
   def perform(params={})
     # check if order already exists
-    existing_order = Order.find_by(aliexpress_number: aliexpress_number(params))
-    return existing_order.notify_client if existing_order.tracked?
+    #existing_order = Order.find_by(aliexpress_number: aliexpress_number(params))
+    #return existing_order.notify_client if existing_order.tracked?
 
     browser = ::Aliexpress::BrowserBuilder.build
     order = build_order(params)
